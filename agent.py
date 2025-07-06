@@ -11,18 +11,40 @@ from datetime import datetime, timedelta
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import os
+import json
+import tempfile
 from dotenv import load_dotenv
 
 load_dotenv()
 
-SERVICE_ACCOUNT_FILE = 'credentials/credentials.json'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
+
+def get_credentials():
+    """Get credentials from file or environment variable"""
+    # First try environment variable (for Railway deployment)
+    credentials_json = os.getenv("GOOGLE_CREDENTIALS_JSON")
+    if credentials_json:
+        try:
+            # Parse JSON from environment variable
+            credentials_dict = json.loads(credentials_json)
+            return service_account.Credentials.from_service_account_info(
+                credentials_dict, scopes=SCOPES
+            )
+        except json.JSONDecodeError as e:
+            print(f"Error parsing credentials JSON: {e}")
+    
+    # Fallback to file (for local development)
+    service_account_file = 'credentials/credentials.json'
+    if os.path.exists(service_account_file):
+        return service_account.Credentials.from_service_account_file(
+            service_account_file, scopes=SCOPES
+        )
+    
+    raise FileNotFoundError("No valid credentials found. Set GOOGLE_CREDENTIALS_JSON environment variable or place credentials.json file.")
 
 def get_calendar_service():
     """Get Google Calendar service with cached credentials"""
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES
-    )
+    credentials = get_credentials()
     return build('calendar', 'v3', credentials=credentials)
 
 def get_calendar_id(service):

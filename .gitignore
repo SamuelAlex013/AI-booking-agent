@@ -1,5 +1,46 @@
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
 venv/
+.venv/
 .env
+*.egg-info/
+dist/
+build/
 
+# Credentials and sensitive files
 credentials/
+*.json
+.env
+.env.local
+.env.production
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*~
+
+# Test files (development only)
+test_*.py
+quick_test.py
+*_test.py
+
+# Documentation files (generated)
+*SUMMARY.md
+*_SUMMARY.md

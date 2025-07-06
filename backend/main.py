@@ -101,11 +101,28 @@ async def health_check():
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
     """Process chat messages through the AI agent"""
-    if not AGENT_AVAILABLE:
-        raise HTTPException(status_code=503, detail="AI agent is not available")
-    
     try:
+        if not AGENT_AVAILABLE:
+            logger.error("AI agent is not available - check credentials and environment")
+            raise HTTPException(
+                status_code=503, 
+                detail={
+                    "error": "AI agent is not available",
+                    "debug": {
+                        "credentials_exists": os.path.exists(credentials_path),
+                        "google_api_key_set": bool(google_api_key),
+                        "agent_available": AGENT_AVAILABLE
+                    }
+                }
+            )
+        
         response = chat_with_agent(request.message)
+        return {"response": response}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Chat endpoint error: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
         return {"response": response, "status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Agent error: {str(e)}")

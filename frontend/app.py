@@ -290,7 +290,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Backend API URL
-API_URL = "http://127.0.0.1:8000"  # Change this for deployment
+API_URL = "https://web-production-deab.up.railway.app"  # Live Railway backend
 
 def check_backend_status():
     """Check if the backend is running"""
