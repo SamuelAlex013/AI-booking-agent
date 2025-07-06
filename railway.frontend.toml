@@ -1,0 +1,11 @@
+# Railway configuration for frontend deployment
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true --server.enableCORS false --server.enableWebsocketCompression false"
+healthcheckPath = "/"
+healthcheckTimeout = 120
+
+[env]
+PYTHONPATH = "/app"
