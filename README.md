@@ -43,22 +43,14 @@ AI-booking-agent/
 6. Place the credentials file in `credentials/credentials.json`
 7. Share your Google Calendar with the service account email address
 
-### 3. Installation
-
-```bash
-git clone <repository-url>
-cd AI-booking-agent
-pip install -r requirements.txt
-```
-
-### 4. Environment Configuration
+### 3. Environment Configuration
 
 Create a `.env` file in the project root:
 ```
 GOOGLE_API_KEY=your_api_key_here
 ```
 
-### 5. Running the Application
+### 4. Running the Application
 
 **Windows:**
 ```cmd
