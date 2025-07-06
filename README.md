@@ -1,22 +1,6 @@
 # AI Calendar Assistant
 
-A conversational AI agent for managing Google Calendar through natural language intera## Troubleshootingtions. This appl## Technical Architecture
-
-- **Frontend**: Streamlit web application for user interface
-- **Backend**: FastAPI server providing RESTful endpoints
-- **AI Engine**: LangChain framework with Google Gemini integration
-- **Calendar API**: Google Calendar API v3 for calendar operations
-- **Authentication**: Google service account authentication
-
-## Requirements
-
-Key dependencies include:
-- `langchain`: AI framework for conversational agents
-- `google-generativeai`: Google Gemini AI integration
-- `google-api-python-client`: Google Calendar API client
-- `fastapi`: Modern web framework for API development
-- `streamlit`: Web application framework
-- `uvicorn`: ASGI server implementationlows users to schedule, modify, and query calendar events using simple text commands instead of traditional calendar interfaces.
+A conversational AI agent for managing Google Calendar through natural language interactions. This application allows users to schedule, modify, and query calendar events using simple text commands instead of traditional calendar interfaces.
 
 ## Features
 
@@ -95,19 +79,51 @@ Access the application at `http://localhost:8501`
 
 ## Deployment
 
-### Railway
+### Railway (Recommended)
 
-1. Fork the repository on GitHub
-2. Create an account at [railway.app](https://railway.app)
-3. Connect your GitHub repository
-4. Configure environment variables:
+This project is pre-configured for Railway deployment:
+
+1. **Prepare Repository**
+   ```bash
+   git add .
+   git commit -m "Prepare for deployment"
+   git push origin main
+   ```
+
+2. **Deploy to Railway**
+   - Visit [railway.app](https://railway.app)
+   - Sign in with GitHub
+   - Click "New Project" → "Deploy from GitHub repo"
+   - Select your repository
+   - Railway will automatically detect the configuration
+
+3. **Environment Variables**
+   In Railway dashboard, add:
    - `GOOGLE_API_KEY`: Your Google AI API key
-5. Upload `credentials.json` to the credentials directory
+   - `PYTHONPATH`: `/app`
+
+4. **Upload Credentials**
+   - In Railway dashboard, go to Files
+   - Create `credentials` folder
+   - Upload your `credentials.json` file
+
+5. **Custom Domain (Optional)**
+   - In Railway dashboard, go to Settings
+   - Add custom domain or use the generated Railway domain
 
 ### Alternative Platforms
 
-- **Render**: Suitable for applications requiring persistent storage
-- **Fly.io**: Recommended for global deployment with edge computing
+- **Render**: Add a `render.yaml` configuration file
+- **Fly.io**: Use `fly launch` to generate configuration
+- **Heroku**: Use existing Procfile configuration
+
+## Live Demo
+
+Once deployed, your application will be available at your Railway domain. The API endpoints include:
+
+- `GET /health` - Health check endpoint
+- `POST /chat` - Main chat interface
+- `POST /clear` - Clear conversation history
 
 ## Usage Examples
 
@@ -120,4 +136,64 @@ The application supports natural language queries for calendar management:
 - "Find a free hour next week for a client call"
 
 The conversational agent maintains context, allowing for follow-up commands without repeating information.
+
+## Troubleshooting
+
+### Deployment Issues
+
+**Railway deployment fails:**
+- Verify all environment variables are set
+- Check that `credentials.json` is uploaded correctly
+- Review build logs in Railway dashboard
+
+**Service fails to start:**
+- Verify Python 3.8+ in railway.toml
+- Confirm Google AI API key is valid
+- Check Railway service logs
+
+### API Issues
+
+**AI not responding:**
+- Check API rate limits and quota usage
+- Verify environment variables in Railway
+- Review application logs
+
+### Testing
+
+Run the test suite locally before deployment:
+```bash
+python test_optimized.py
+```
+
+## Technical Architecture
+
+- **Frontend**: Streamlit web application (local development)
+- **Backend**: FastAPI server providing RESTful endpoints
+- **AI Engine**: LangChain framework with Google Gemini integration
+- **Calendar API**: Google Calendar API v3 for calendar operations
+- **Authentication**: Google service account authentication
+- **Deployment**: Railway with automatic builds and deployments
+
+## Requirements
+
+Key dependencies include:
+- `langchain`: AI framework for conversational agents
+- `google-generativeai`: Google Gemini AI integration
+- `google-api-python-client`: Google Calendar API client
+- `fastapi`: Modern web framework for API development
+- `streamlit`: Web application framework
+- `uvicorn`: ASGI server implementation
+
+## Contributing
+
+This project welcomes contributions. Please follow standard Git workflow:
+
+1. Fork the repository
+2. Create a feature branch
+3. Implement changes with appropriate tests
+4. Submit a pull request with detailed description
+
+## License
+
+This project is licensed under the MIT License.
 
