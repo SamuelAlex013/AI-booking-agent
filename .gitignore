@@ -1,7 +1,9 @@
-
 venv/
 .env
 
 credentials/
 
 .devcontainer/
+
+.streamlit/
+__pycache__/

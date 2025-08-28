@@ -14,6 +14,7 @@ import os
 import json
 import tempfile
 from dotenv import load_dotenv
+from typing import Optional
 
 load_dotenv()
 
@@ -92,7 +93,7 @@ def get_time_status(event_start: str, current_time: datetime) -> str:
 
 # Define LangChain tools using the @tool decorator
 @tool
-def check_calendar_availability(date_str: str = None) -> str:
+def check_calendar_availability(date_str: Optional[str] = None) -> str:
     """
     Check calendar events. Use date (YYYY-MM-DD) for specific day, "all" for all meetings, or empty for upcoming.
     """
@@ -297,7 +298,6 @@ def create_booking_agent():
     try:
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash-lite",
-            google_api_key=os.getenv("GOOGLE_API_KEY"),
             temperature=0.3
         )
         print("✅ Using Gemini 2.0 Flash-Lite")
@@ -306,7 +306,6 @@ def create_booking_agent():
         try:
             llm = ChatGoogleGenerativeAI(
                 model="gemini-1.5-flash",
-                google_api_key=os.getenv("GOOGLE_API_KEY"),
                 temperature=0.3
             )
             print("✅ Using Gemini 1.5 Flash (fallback)")
@@ -384,7 +383,11 @@ def get_conversation_summary() -> str:
         summary = f"Conversation History ({len(messages)} messages):\n"
         for i, msg in enumerate(messages[-6:], 1):
             role = "User" if isinstance(msg, HumanMessage) else "Assistant"
-            content = msg.content[:100] + "..." if len(msg.content) > 100 else msg.content
+            content = str(msg.content)
+            if isinstance(msg.content, str):
+                content = msg.content[:100] + "..." if len(msg.content) > 100 else msg.content
+            else:
+                content = str(msg.content)
             summary += f"{i}. {role}: {content}\n"
         
         return summary
