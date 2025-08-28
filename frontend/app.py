@@ -290,7 +290,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Backend API URL
-API_URL = "https://ai-booking-agent.vercel.app"  # Live Vercel backend
+API_URL = "https://your-actual-vercel-url.vercel.app"  # Replace with your actual Vercel URL
 # API_URL = "http://localhost:8000"  # For local development
 
 def check_backend_status():

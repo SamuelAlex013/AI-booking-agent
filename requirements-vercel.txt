@@ -1,0 +1,12 @@
+fastapi==0.115.14
+langchain==0.3.26
+langchain-google-genai==2.0.6
+langchain-core==0.3.68
+google-generativeai==0.8.3
+google-api-python-client==2.175.0
+google-auth==2.40.3
+google-auth-oauthlib==1.2.2
+google-auth-httplib2==0.2.0
+uvicorn==0.35.0
+pydantic==2.11.7
+python-dotenv==1.0.1

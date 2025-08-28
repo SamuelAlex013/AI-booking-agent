@@ -1,0 +1,38 @@
+# Ignore large files and directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Ignore Docker and other deployment files
+Dockerfile
+docker-compose.yml
+render.yaml
+Procfile
+railway.toml
+
+# Ignore frontend
+frontend/
+
+# Ignore credentials (use environment variables)
+credentials/
+
+# Large dependencies that aren't needed
+*.so
+*.dylib
